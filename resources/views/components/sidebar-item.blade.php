@@ -14,8 +14,8 @@
         <x-icons.dashboard></x-icons.dashboard>
     @elseif($route === 'families')
         <x-icons.families></x-icons.families>
-    @elseif($route === 'congregants')
-        <x-icons.congregants></x-icons.congregants>
+    @elseif($route === 'members')
+        <x-icons.members></x-icons.members>
     @endif
     {{ $title }}
 </a>

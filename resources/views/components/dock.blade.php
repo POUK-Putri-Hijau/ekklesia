@@ -9,8 +9,8 @@
         <span class="dock-label">Keluarga</span>
     </a>
 
-    <a class="{{ isActiveRoute('congregants') }}" href="/congregants">
-        <x-icons.congregants class="size-[1.2em]"></x-icons.congregants>
+    <a class="{{ isActiveRoute('members') }}" href="/members">
+        <x-icons.members class="size-[1.2em]"></x-icons.members>
         <span class="dock-label">Jemaat</span>
     </a>
 

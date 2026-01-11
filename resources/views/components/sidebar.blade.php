@@ -16,7 +16,7 @@
         ></x-sidebar-item>
 
         <x-sidebar-item
-            route="congregants"
+            route="members"
             title="Anggota Jemaat"
         ></x-sidebar-item>
     </nav>
