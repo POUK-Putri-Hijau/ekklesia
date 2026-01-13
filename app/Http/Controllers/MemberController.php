@@ -9,6 +9,6 @@ class MemberController extends Controller
 {
     public function index(): Factory|View
     {
-        return view('members');
+        return view('members.index');
     }
 }
