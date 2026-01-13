@@ -1,5 +1,5 @@
 @props([
-    'title' => 'Anggota Jemaat'
+    'title' => 'Ubah Data Keluarga'
 ])
 
 <!DOCTYPE html>

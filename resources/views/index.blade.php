@@ -7,9 +7,11 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>Ekklesia - Kelola Data Jemaat</title>
+
+        <link rel="stylesheet" type="text/css" href="{{ url('/css/background.css') }}" />
         @vite('resources/css/app.css')
     </head>
-    <body class="min-h-screen flex items-center justify-center bg-[url('{{ @asset('img/background.jpg') }}')] p-8 md:p-0">
+    <body class="min-h-screen flex items-center justify-center bg-hero bg-cover bg-center p-8 md:p-0">
         <x-notification></x-notification>
 
         <div class="max-w-4xl w-full flex flex-col md:flex-row gap-8 items-center p-8 inset-10 bg-white/30 backdrop-blur-sm rounded-lg border border-white/40">

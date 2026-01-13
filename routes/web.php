@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\CongregantController;
+use App\Http\Controllers\MemberController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\IndexController;
@@ -17,13 +17,22 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth'])
     ->name('dashboard');
 
+
 Route::get('/families', [FamilyController::class, 'index'])
     ->middleware(['auth'])
     ->name('families');
 
-Route::get('/congregants', [CongregantController::class, 'index'])
+Route::get('/families/create', [FamilyController::class, 'create'])
     ->middleware(['auth'])
-    ->name('congregants');
+    ->name('families.create');
+
+Route::get('/families/edit/{family_id}', [FamilyController::class, 'edit'])
+    ->middleware(['auth']);
+
+
+Route::get('/members', [MemberController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('members');
 
 Route::get('/profile', [ProfileController::class, 'index'])
     ->middleware(['auth'])
