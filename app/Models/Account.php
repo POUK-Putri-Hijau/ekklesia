@@ -10,8 +10,6 @@ class Account extends Authenticatable
     public $incrementing = true;
     protected $keyType = 'integer';
 
-    public $timestamps = false;
-
     protected $fillable = [
         'name',
         'email',

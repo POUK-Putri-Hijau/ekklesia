@@ -11,4 +11,9 @@ class MemberController extends Controller
     {
         return view('members.index');
     }
+
+    public function create(): Factory|View
+    {
+        return view('members.create');
+    }
 }

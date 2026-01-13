@@ -14,6 +14,7 @@ return new class extends Migration
             $table->date('birth_date');
             $table->string('address', 256);
             $table->mediumInteger('family_id')->unsigned()->nullable();
+            $table->timestamps();
 
             $table->foreign('family_id')
                 ->references('id')

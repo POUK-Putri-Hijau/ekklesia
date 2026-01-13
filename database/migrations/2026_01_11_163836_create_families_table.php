@@ -12,6 +12,7 @@ return new class extends Migration
             $table->mediumIncrements('id')->primary();
             $table->string('name', 70);
             $table->string('address', 256);
+            $table->timestamps();
         });
     }
 

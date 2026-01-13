@@ -34,6 +34,11 @@ Route::get('/members', [MemberController::class, 'index'])
     ->middleware(['auth'])
     ->name('members');
 
+Route::get('/members/create', [MemberController::class, 'create'])
+    ->middleware(['auth'])
+    ->name('members.create');
+
+
 Route::get('/profile', [ProfileController::class, 'index'])
     ->middleware(['auth'])
     ->name('profile');
