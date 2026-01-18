@@ -16,7 +16,7 @@
 
         <div class="max-w-4xl w-full flex flex-col md:flex-row gap-8 items-center p-8 inset-10 bg-white/30 backdrop-blur-sm rounded-lg border border-white/40">
             <x-landing-intro></x-landing-intro>
-            <x-login-card></x-login-card>
+            <x-forms.login></x-forms.login>
         </div>
 
         <script src="{{ @asset('js/index.js') }}" type="text/javascript"></script>

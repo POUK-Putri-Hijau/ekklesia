@@ -8,15 +8,7 @@ export default defineConfig({
             input: ['resources/css/app.css', 'resources/js/app.js'],
             refresh: true,
         }),
-        tailwindcss({
-            theme: {
-                extend: {
-                    backgroundImage: {
-                        'hero-pattern': "url('/img/background.jpg')",
-                    },
-                },
-            }
-        }),
+        tailwindcss(),
     ],
     server: {
         watch: {

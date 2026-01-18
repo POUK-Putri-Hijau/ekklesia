@@ -1,17 +1,17 @@
 <?php
 
-namespace App\View\Components\ListRow;
+namespace App\View\Components\Inputs;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class FamilyRow extends Component
+class Month extends Component
 {
     public function __construct() {}
 
     public function render(): View|Closure|string
     {
-        return view('components.list-row.family');
+        return view('components.inputs.month');
     }
 }

@@ -12,6 +12,8 @@ return new class extends Migration
             $table->mediumIncrements('id')->primary();
             $table->string('name', 70);
             $table->string('address', 256);
+            $table->date('wedding_date')->nullable();
+            $table->timestamps();
         });
     }
 
