@@ -26,7 +26,7 @@ Route::get('/families/create', [FamilyController::class, 'create'])
     ->middleware(['auth'])
     ->name('families.create');
 
-Route::get('/families/edit/{family_id}', [FamilyController::class, 'edit'])
+Route::get('/families/{family_id}/edit', [FamilyController::class, 'edit'])
     ->middleware(['auth']);
 
 
@@ -37,6 +37,18 @@ Route::get('/members', [MemberController::class, 'index'])
 Route::get('/members/create', [MemberController::class, 'create'])
     ->middleware(['auth'])
     ->name('members.create');
+
+Route::post('/members', [MemberController::class, 'store'])
+    ->middleware(['auth']);
+
+Route::get('/members/{member_id}/edit', [MemberController::class, 'edit'])
+    ->middleware(['auth']);
+
+Route::put('/members/{member_id}', [MemberController::class, 'update'])
+    ->middleware(['auth']);
+
+Route::delete('/members/{member_id}', [MemberController::class, 'destroy'])
+    ->middleware(['auth']);
 
 
 Route::get('/profile', [ProfileController::class, 'index'])

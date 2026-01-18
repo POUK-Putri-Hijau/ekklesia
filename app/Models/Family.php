@@ -4,17 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Member extends Model
+class Family extends Model
 {
-    protected $table = 'members';
+    protected $table = 'families';
     public $incrementing = true;
     protected $keyType = 'integer';
 
     protected $fillable = [
         'name',
-        'birth_date',
         'address',
-        'phone_number',
-        'family_id',
+        'wedding_date',
     ];
 }

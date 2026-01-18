@@ -13,6 +13,7 @@ return new class extends Migration
             $table->string('name', 70);
             $table->date('birth_date');
             $table->string('address', 256);
+            $table->string('phone_number', 16)->nullable();
             $table->mediumInteger('family_id')->unsigned()->nullable();
             $table->timestamps();
 
