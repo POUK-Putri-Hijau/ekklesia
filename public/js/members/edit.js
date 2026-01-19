@@ -45,9 +45,8 @@ el('send').onclick = async() => {
     const address = inputs.address.value;
     if (!addressIsValid(address)) return;
 
-    const phoneNumber = inputs.phone.value;
+    const phoneNumber = (inputs.phone.value).replace(/ /g, '');
     if (!phoneNumberIsValid(phoneNumber)) return;
-    //
 
     const familyName = inputs.familyName.value;
     if (!familyIsValid(familyName)) return;
@@ -75,7 +74,7 @@ el('send').onclick = async() => {
     if (!result.ok) {
         Swal.fire({
             title: 'Gagal',
-            html: 'Maaf, terjadi kesalahan saat mengirim data, silakan coba lagi.<br>Jika masih error, mohon hubungi developer website. Terima kasih.',
+            text: 'Maaf, terjadi kesalahan saat mengirim data, mohon cek ulang data dan pastikan sudah benar.',
             icon: 'error',
             confirmButtonText: 'OK'
         });
