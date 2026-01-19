@@ -8,7 +8,7 @@
 
     <label class="text-lg mt-4">Tanggal Lahir</label>
     <div class="flex gap-4">
-        <div class="flex-1">
+        <div class="flex-1/12 md:flex-1">
             <label class="text-sm">Tanggal (1-31)</label>
             <input type="text" name="birth-date-day" class="input w-full" minlength="1" maxlength="2" />
         </div>

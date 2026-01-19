@@ -19,4 +19,16 @@ class Validators
             'family-name' => 'nullable|string|min:9|max:70',
         ];
     }
+
+    public static function family(): array
+    {
+        return [
+            'name' => [
+                'required','string','min:9','max:70','regex:/^[^\d]*$/',
+            ],
+            'wedding-date-day'   => 'nullable|integer|min:1|max:31',
+            'wedding-date-month' => 'nullable|integer|min:1|max:12',
+            'wedding-date-year'  => 'nullable|integer|min:1900|max:3000',
+        ];
+    }
 }

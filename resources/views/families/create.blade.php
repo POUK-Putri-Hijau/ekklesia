@@ -21,11 +21,15 @@
                 <x-header title="{{ $title }}"></x-header>
 
                 <main class="flex-1 p-4 md:p-6">
-                    <h1 class="text-2xl md:text-4xl">WIP.</h1>
+                    <x-forms.add-family></x-forms.add-family>
                 </main>
             </main>
 
             <x-dock></x-dock>
         </div>
+
+        <script src="{{ @asset('js/sweetalert2.js') }}" type="text/javascript"></script>
+        <script src="{{ @asset('js/families/create.js') }}" type="text/javascript"></script>
+        <script src="{{ @asset('js/families/delete.js') }}" type="text/javascript"></script>
     </body>
 </html>

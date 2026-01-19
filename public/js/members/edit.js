@@ -128,10 +128,10 @@ function dateIsValid(day) {
 }
 
 function monthIsValid(month) {
-    if (month === 'Pilih bulan lahir') {
+    if (month === 'Pilih bulan') {
         // hehe
         sendAlert({
-            title: 'Gagal', text: 'Maaf pak / bu, itu bulan lahirnya belum dipilih', icon: 'error'
+            title: 'Gagal', text: 'Maaf, bulan lahir belum dipilih', icon: 'error'
         });
         return false;
     }
