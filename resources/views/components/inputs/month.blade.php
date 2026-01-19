@@ -10,7 +10,7 @@
 @endphp
 
 <select class="select" name="month">
-    <option disabled {{ $selected_month === '' ? 'selected' : '' }}>Pilih bulan lahir</option>
+    <option disabled {{ $selected_month === '' ? 'selected' : '' }}>Pilih bulan</option>
     @foreach($months as $num => $name)
         <option value="{{ $num }}" {{ $selected_month === (string)$num ? 'selected' : '' }}>
             {{ $name }}

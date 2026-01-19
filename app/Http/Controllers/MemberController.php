@@ -55,8 +55,11 @@ class MemberController extends Controller
         return '';
     }
 
-    public function edit($member_id): Factory|View
+    public function edit($member_id)
     {
+        $error_found = validateId($member_id);
+        if ($error_found) return $error_found;
+
         $families = Family::all(['id', 'name'])->toarray();
         $member = Member::where('id', $member_id)->first();
         if (!$member) {
@@ -77,9 +80,16 @@ class MemberController extends Controller
     }
 
     public function update(Request $request, $member_id) {
+        $error_found = validateId($member_id);
+        if ($error_found) return response()->json([], 404);
+
         $member = Member::find($member_id);
         if (!$member) {
-            return view('error', ['error' => 'Mohon maaf, data jemaat tersebut tidak ditemukan']);
+            return response()->view(
+                'error',
+                ['error' => 'Mohon maaf, data jemaat tersebut tidak ditemukan'],
+                403
+            );
         }
 
         $input = $request->only(MEMBER_DATA_INPUTS);
@@ -99,6 +109,9 @@ class MemberController extends Controller
     }
 
     public function destroy($member_id) {
+        $error_found = validateId($member_id);
+        if ($error_found) return response()->json([], 404);
+
         $member = Member::find($member_id);
         if (!$member) {
             return response()->json([], 404);

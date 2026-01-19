@@ -26,7 +26,16 @@ Route::get('/families/create', [FamilyController::class, 'create'])
     ->middleware(['auth'])
     ->name('families.create');
 
+Route::post('/families', [FamilyController::class, 'store'])
+    ->middleware(['auth']);
+
 Route::get('/families/{family_id}/edit', [FamilyController::class, 'edit'])
+    ->middleware(['auth']);
+
+Route::put('/families/{family_id}', [FamilyController::class, 'update'])
+    ->middleware(['auth']);
+
+Route::delete('/families/{family_id}', [FamilyController::class, 'destroy'])
     ->middleware(['auth']);
 
 

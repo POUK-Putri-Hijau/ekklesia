@@ -80,8 +80,8 @@ el('send').onclick = async() => {
 
     if (!result.ok) {
         sendAlert({
-            html: 'Gagal', icon: 'error',
-            text: 'Maaf, terjadi kesalahan saat mengirim data, silakan coba lagi.<br>Jika masih error, mohon hubungi developer website. Terima kasih.'
+            title: 'Gagal', icon: 'error',
+            text: 'Maaf, terjadi kesalahan saat mengirim data, mohon cek ulang data dan pastikan sudah benar.'
         });
         return;
     }
@@ -135,10 +135,10 @@ function dateIsValid(day) {
 }
 
 function monthIsValid(month) {
-    if (month === 'Pilih bulan lahir') {
+    if (month === 'Pilih bulan') {
         // hehe
         sendAlert({
-            title: 'Gagal', text: 'Maaf pak / bu, itu bulan lahirnya belum dipilih', icon: 'error'
+            title: 'Gagal', text: 'Maaf, bulan lahir belum dipilih', icon: 'error'
         });
         return false;
     }
