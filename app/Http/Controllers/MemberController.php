@@ -7,8 +7,10 @@ use App\Models\Member;
 use App\Rules\Validators;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 const MEMBER_DATA_INPUTS = [
     'name',
@@ -18,14 +20,34 @@ const MEMBER_DATA_INPUTS = [
     'address',
     'phone-number',
     'family-name',
+    'photo'
 ];
 
 class MemberController extends Controller
 {
 
-    public function index(): Factory|View
+    public function index(Request $request): Factory|View
     {
-        $members = Member::all();
+        $page = $request->query('page');
+        $page_int = intval($page);
+        if ($page_int === 0) $page_int = 1;
+
+        $perPage = 7;
+        $min = ($page_int - 1) * $perPage;
+        $max = $perPage;
+
+        $members = Member::all()->skip($min)->take($max);
+        $max_page = round(Member::all()->count() / $perPage);
+        return view('members.index', ['members' => $members, 'page_num' => $page_int, 'max_page' => $max_page]);
+    }
+
+    public function search(Request $request): Factory|View|RedirectResponse
+    {
+        $name = $request->query('name');
+        if (empty(trim($name))) return redirect('/members');
+
+        $lowercase_name = strtolower($name);
+        $members = Member::whereRaw('LOWER(name) LIKE ?', ["%$lowercase_name%"])->get();
         return view('members.index', ['members' => $members]);
     }
 
@@ -129,8 +151,24 @@ function parseMemberData($input) {
     $data['name'] = $input['name'];
     $data['birth_date'] = $input['birth-date-year'] . '-' . $input['birth-date-month'] . '-' . $input['birth-date-day'];
     $data['address'] = $input['address'];
-    $data['phone_number'] = $input['phone-number'];
-    $data['family_name'] = $input['family-name'];
+
+    if (isset($input['phone-number'])) {
+        $data['phone_number'] = $input['phone-number'];
+    } else {
+        $data['phone_number'] = null;
+    }
+
+    if (isset($input['family-name'])) {
+        $data['family_name'] = $input['family-name'];
+    } else {
+        $data['family_name'] = null;
+    }
+
+    if (isset($input['photo'])) {
+        $data['photo'] = $input['photo'];
+    } else {
+        $data['photo'] = null;
+    }
 
     return $data;
 }
@@ -151,6 +189,19 @@ function saveMemberData($member, array $data, bool $is_update = false) {
         if ($family) $member['family_id'] = $family->id;
     } else if ($is_update) {
         $member['family_id'] = null;
+    }
+
+    $photo = $data['photo'];
+    if ($photo) {
+        $extension = $photo->getClientOriginalExtension();
+        $file_name = Str::random() . '.' . $extension;
+
+        if ($is_update && $member['photo_file_name']) {
+            $file_name = $member['photo_file_name'];
+        }
+
+        $photo->storeAs('member_photos/', $file_name);
+        $member['photo_file_name'] = $file_name;
     }
 
     $member->save();

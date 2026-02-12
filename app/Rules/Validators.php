@@ -17,6 +17,7 @@ class Validators
                 'nullable','string','min:9','max:15','regex:/^(08|\+628)[0-9]+$/',
             ],
             'family-name' => 'nullable|string|min:9|max:70',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:51200'
         ];
     }
 

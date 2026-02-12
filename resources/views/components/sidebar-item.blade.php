@@ -16,6 +16,8 @@
         <x-icons.families></x-icons.families>
     @elseif($route === 'members')
         <x-icons.members></x-icons.members>
+    @elseif($route === 'birthdays')
+        <x-icons.birthday></x-icons.birthday>
     @endif
     {{ $title }}
 </a>

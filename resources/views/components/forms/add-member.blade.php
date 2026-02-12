@@ -31,5 +31,10 @@
     <label class="text-lg mt-4">Keluarga (Opsional)</label>
     <x-inputs.family :families="$families"></x-inputs.family>
 
+    <label class="text-lg mt-4">Foto Jemaat (Opsional)</label>
+    <input type="file" name="photo" class="file-input file-input-md w-full" />
+
     <button class="btn btn-info mt-4" id="send">Kirim</button>
+
+    <i class="mb-16 md:mb-0"></i>
 </fieldset>

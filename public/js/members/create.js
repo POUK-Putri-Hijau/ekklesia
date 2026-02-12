@@ -1,6 +1,9 @@
 const el = (id) => document.getElementById(id);
 const elName = (name) => document.getElementsByName(name)[0];
+
 let csrfToken;
+const PHOTO_EXTENTIONS = ['jpg','jpeg','png'];
+const MAX_BYTES = 5 * 1024 * 1024;
 
 function sendAlert({ title, text, icon }) {
     Swal.fire({
@@ -27,7 +30,8 @@ const inputs = {
     },
     address: elName('address'),
     phone: elName('phone-number'),
-    familyName: elName('family-name')
+    familyName: elName('family-name'),
+    photo: elName('photo'),
 }
 
 elName('phone-number').onpaste = async(e) => {
@@ -54,28 +58,46 @@ el('send').onclick = async() => {
 
     const phoneNumber = inputs.phone.value;
     if (!phoneNumberIsValid(phoneNumber)) return;
-    //
 
     const familyName = inputs.familyName.value;
     if (!familyIsValid(familyName)) return;
 
-    const body = {
-        name,
-        'birth-date-day': birthDate.day,
-        'birth-date-month': birthDate.month,
-        'birth-date-year': birthDate.year,
-        address,
-        'phone-number': phoneNumber,
-        'family-name': familyName,
+    const photo = inputs.photo.files[0];
+    if (!photoIsValid(photo)) {
+        Swal.fire({
+            title: 'Gagal',
+            html: 'Maaf, foto jemaat tidak valid.',
+            icon: 'error',
+            confirmButtonText: 'OK',
+        });
+        return;
+    }
+
+    const form = new FormData();
+    form.append('name', name);
+    form.append('birth-date-day', birthDate.day);
+    form.append('birth-date-month', birthDate.month);
+    form.append('birth-date-year', birthDate.year);
+    form.append('address', address);
+
+    if (phoneNumber) {
+        form.append('phone-number', phoneNumber);
+    }
+
+    if (familyName) {
+        form.append('family-name', familyName);
+    }
+
+    if (photo) {
+        form.append('photo', inputs.photo.files[0]);
     }
 
     const result = await fetch('/members', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
             'X-CSRF-TOKEN': csrfToken
         },
-        body: JSON.stringify(body),
+        body: form,
     });
 
     if (!result.ok) {
@@ -243,4 +265,15 @@ function familyIsValid(familyName) {
     }
 
     return true;
+}
+
+function photoIsValid(photo) {
+    if (!photo) return true;
+
+    const m = photo.name?.split('.').pop();
+    const ext = m ? m.toLowerCase() : '';
+
+    if (!PHOTO_EXTENTIONS.includes(ext)) return false;
+
+    return photo.size <= MAX_BYTES;
 }

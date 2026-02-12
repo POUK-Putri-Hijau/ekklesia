@@ -7,6 +7,7 @@ use App\Models\FamilyTotalMember;
 use App\Rules\Validators;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -19,9 +20,28 @@ const FAMILY_DATA_INPUTS = [
 
 class FamilyController extends Controller
 {
-    public function index(): Factory|View
+    public function index(Request $request): Factory|View
     {
-        $families = FamilyTotalMember::all();
+        $page = $request->query('page');
+        $page_int = intval($page);
+        if ($page_int === 0) $page_int = 1;
+
+        $perPage = 7;
+        $min = ($page_int - 1) * $perPage;
+        $max = $perPage;
+
+        $families = FamilyTotalMember::all()->skip($min)->take($max);
+        $max_page = round(FamilyTotalMember::all()->count() / $perPage);
+        return view('families.index', ['families' => $families, 'page_num' => $page_int, 'max_page' => $max_page]);
+    }
+
+    public function search(Request $request): Factory|View|RedirectResponse
+    {
+        $name = $request->query('name');
+        if (empty(trim($name))) return redirect('/families');
+
+        $lowercase_name = strtolower($name);
+        $families = FamilyTotalMember::whereRaw('LOWER(family_name) LIKE ?', ["%$lowercase_name%"])->get();
         return view('families.index', ['families' => $families]);
     }
 

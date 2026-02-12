@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('address', 256);
             $table->string('phone_number', 16)->nullable();
             $table->mediumInteger('family_id')->unsigned()->nullable();
+            $table->string('photo_file_name', 21)->nullable();
             $table->timestamps();
 
             $table->foreign('family_id')

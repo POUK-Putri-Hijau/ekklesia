@@ -37,6 +37,18 @@
     <label class="text-lg mt-4">Keluarga (Opsional)</label>
     <x-inputs.family :families="$families" member_family_name="{{ $member->family_name }}"></x-inputs.family>
 
+    <label class="text-lg mt-4">Foto Jemaat (Opsional)</label>
+    @if(!empty($member->photo_file_name))
+        <img
+            src="http://localhost:8000/member-photos/{{ $member->photo_file_name }}"
+            alt="Foto jemaat {{ $member->name }}"
+            class="h-96"
+        />
+    @endif
+    <input type="file" name="photo" class="file-input file-input-md w-full" />
+
     <button class="btn btn-info mt-4" id="send">Kirim</button>
     <button class="btn btn-error mt-4" id="delete">Hapus Data</button>
+
+    <i class="mb-16 md:mb-0"></i>
 </fieldset>

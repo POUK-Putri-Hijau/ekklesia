@@ -14,6 +14,11 @@
         <span class="dock-label">Jemaat</span>
     </a>
 
+    <a class="{{ isActiveRoute('birthdays') }}" href="{{ @route('birthdays') }}">
+        <x-icons.birthday class="size-[1.2em]"></x-icons.birthday>
+        <span class="dock-label">Ultah</span>
+    </a>
+
     <a class="{{ isActiveRoute('profile') }}" href="/profile">
         <x-icons.profile class="size-[1.2em]"></x-icons.profile>
         <span class="dock-label">Profil</span>

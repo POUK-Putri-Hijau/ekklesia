@@ -1,53 +1,70 @@
 @php use Carbon\Carbon; @endphp
 @props([
-    'title' => 'Anggota Jemaat'
+    'title' => 'Anggota Jemaat',
+    'page_num' => null
 ])
 
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+        <title>Ekklesia - {{ $title }}</title>
+        @vite('resources/css/app.css')
+    </head>
+    <body>
+        <div class="min-h-screen flex flex-col">
+            <x-sidebar></x-sidebar>
 
-    <title>Ekklesia - {{ $title }}</title>
-    @vite('resources/css/app.css')
-</head>
-<body>
-<div class="min-h-screen flex flex-col">
-    <x-sidebar></x-sidebar>
+            <main class="flex flex-col md:ml-64">
+                <x-header title="{{ $title }}"></x-header>
 
-    <main class="flex flex-col md:ml-64">
-        <x-header title="{{ $title }}"></x-header>
+                <div class="flex-1 p-4 md:p-6">
+                    @if($members->isEmpty())
+                        @if($page_num)
+                            <p class="text-2xl">Maaf, belum ada data anggota.</p>
+                        @else
+                            <p class="text-2xl">Maaf, data jemaat tersebut tidak ada.</p>
+                            <a class="btn btn-info w-full lg:w-auto" href="{{ route('members') }}">Kembali</a>
+                        @endif
+                    @else
+                        <x-search-input
+                            placeholder="Cari nama jemaat..."
+                            category="members"
+                        ></x-search-input>
 
-        <div class="flex-1 p-2 md:p-6">
-            @if($members)
-                <ul class="list rounded-box">
-                    @foreach($members as $member)
-                        @php
-                            $date = Carbon::parse($member->birth_date);
-                            $formattedDate = $date->format('d F Y');
-                        @endphp
+                        <x-pagination></x-pagination>
 
-                        <x-list-row.member
-                            id="{{ $member->id }}"
-                            name="{{ $member->name }}"
-                            birth_date="{{ $formattedDate }}"
-                        ></x-list-row.member>
-                    @endforeach
-                </ul>
-            @else
-                <p class="text-2xl">Maaf, belum ada data anggota.</p>
-            @endif
+                        <ul class="list rounded-box">
+                            @foreach($members as $member)
+                                @php
+                                    $date = Carbon::parse($member->birth_date);
+                                    $formattedDate = $date->format('d F Y');
+                                @endphp
+
+                                <x-list-row.member
+                                    id="{{ $member->id }}"
+                                    name="{{ $member->name }}"
+                                    birth_date="{{ $formattedDate }}"
+                                ></x-list-row.member>
+                            @endforeach
+                        </ul>
+                    @endif
+                </div>
+
+                <x-floating-button url="{{ @route('members.create') }}"></x-floating-button>
+            </main>
+
+            <i class="mb-16 md:mb-0"></i>
+
+            <div class="flex-none">
+                <x-dock></x-dock>
+            </div>
         </div>
 
-        <x-floating-button url="{{ @route('members.create') }}"></x-floating-button>
-    </main>
-
-    <div class="flex-none">
-        <x-dock></x-dock>
-    </div>
-</div>
-</body>
+        @if($members->isNotEmpty())
+            <script src="{{ @asset('js/search.js') }}"></script>
+        @endif
+    </body>
 </html>

@@ -19,5 +19,10 @@
             route="members"
             title="Anggota Jemaat"
         ></x-sidebar-item>
+
+        <x-sidebar-item
+            route="birthdays"
+            title="Ulang Tahun"
+        ></x-sidebar-item>
     </nav>
 </div>
